@@ -21,11 +21,12 @@ while read line; do
 unixtimenow=$(bashhub util parsedate $(date +"%Y-%m-%dT%H:%M:%S%z"))
 bashhub save "${line}" ~/ "$$" "${unixtimenow}"  0
 n=$((n+1))
- echo -e " \e[1A\e[K ${n} of ${linescounter} entries imported "
+echo -e " \e[1A\e[K ${n} of ${linescounter} entries imported "
 ## printf " \e[1A \e[K ${n} of ${linescounter} entries imported "
 ## pause 1s to save some server resource
 # sleep 1
 done < $filename
 ## read and upload . end
+
 
 printf " \n ${n} entries imported into bashhub.com \n "
