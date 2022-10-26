@@ -1,35 +1,37 @@
 #!/usr/bin/env zsh
 
-filename=$1
-export unixtimenow
-export linescounter
+filename_to_upload=$1
+line_number_to_start_upload=$2
+line_number_to_end_upload=$3
+
 
 
 ## count the total number of lines in file. start
-linescounter=0
+lines_in_filename_to_upload_totally=0
 while read line; do
-linescounter=$((linescounter+1))
-done < $filename
-# linescounter end
+lines_in_filename_to_upload_totally=$((lines_in_filename_to_upload_totally+1))
+done < $1
+# lines_in_filename_to_upload_totally end
 
 
 ## read and upload line by line. start.
-n=0
+lines_uploaded_counter=0
 while read line; do
 # reading each line
 # echo $line
-unixtimenow=$(bashhub util parsedate $(date +"%Y-%m-%dT%H:%M:%S%z"))
-bashhub save ' "${line}" ' ~/ "$$" "${unixtimenow}"  0
-n=$((n+1))
-echo -e " \e[1A\e[K ${n} of ${linescounter} entries imported "
-## printf " \e[1A \e[K ${n} of ${linescounter} entries imported "
+time_now_unix=$(bashhub util parsedate $(date +"%Y-%m-%dT%H:%M:%S%z"))
+bashhub save ' "${line}" ' ~/ "$$" "${time_now_unix}"  0
+lines_uploaded_counter=$((lines_uploaded_counter+1))
+## rewrite last line in terminal 
+echo -e " \e[1A\e[K ${lines_uploaded_counter} of ${lines_in_filename_to_upload_totally} entries imported "
+## printf " \e[1A \e[K ${n} of ${lines_in_filename_to_upload_totally} entries imported "
 ## pause 1s to save some server resource
 # sleep 1
-done < $filename
+done < $1
 ## read and upload . end
 
 
-printf " \n ${n} entries imported into bashhub.com \n "
+printf " \n ${lines_uploaded_counter} entries imported into bashhub.com \n "
 
 
 function line_number_selection(){}
