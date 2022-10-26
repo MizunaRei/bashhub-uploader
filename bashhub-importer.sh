@@ -30,3 +30,6 @@ done < $filename
 
 
 printf " \n ${n} entries imported into bashhub.com \n "
+
+
+function line_number_selection(){}
