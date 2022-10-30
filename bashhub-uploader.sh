@@ -26,7 +26,7 @@ line_number_being_uploaded=$((line_number_being_uploaded+1))
 if   [  $line_number_being_uploaded -ge   $line_number_to_start_upload   ] 
  then
 	time_now_unix=$(bashhub util parsedate $(date +"%Y-%m-%dT%H:%M:%S%z"))
-	bashhub save  $line  ~/ $$ "${time_now_unix}"  0
+	bashhub save  ' $line '  ~/ $$ "${time_now_unix}"  0
 	lines_uploaded_counter=$((lines_uploaded_counter+1))
 	## rewrite last line in terminal 
 	echo -e " \e[1A\e[K  Line $line_number_being_uploaded is being uploaded. ${lines_uploaded_counter} of ${lines_to_upload} entries imported "
