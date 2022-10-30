@@ -6,8 +6,17 @@ line_number_to_start_upload=${2=1}
 line_number_to_end_upload=${3=100}
 lines_to_upload=0
 ## for debug
- 	 printf " filename $filename_to_upload . line start $line_number_to_start_upload . line end $line_number_to_end_upload . " 
+ 	## printf " filename $filename_to_upload . line start $line_number_to_start_upload . line end $line_number_to_end_upload . " 
 
+
+if [  -e "$(which bashhub)" ]; then
+		## greetings
+	 printf " \n Welcome. This script could help you with \n uploading command line history from local dotfiles to bashhub.com server. \n \n "
+
+	else
+	printf " \n We could not find bashhub executable file.  \n For setting up shell plugins we recommend this project. \n  \n https://github.com/MilkyMAISHIRANUI/unix_shell_plugins_setup \n \n " 
+exit 1
+	fi
 
 function upload_to_bashhub(){
 ## read and upload line by line. start.
@@ -29,7 +38,7 @@ if   [  $line_number_being_uploaded -ge   $line_number_to_start_upload   ]
 	bashhub save  ' $line '  ~/ $$ "${time_now_unix}"  0
 	lines_uploaded_counter=$((lines_uploaded_counter+1))
 	## rewrite last line in terminal 
-	echo -e " \e[1A\e[K  Line $line_number_being_uploaded is being uploaded. ${lines_uploaded_counter} of ${lines_to_upload} entries imported "
+	echo -e " \e[1A\e[K  Line $line_number_being_uploaded was uploaded. ${lines_uploaded_counter} of ${lines_to_upload} entries imported "
 ## piintf does not work
 ## printf " \e[1A \e[K ${n} of ${lines_in_filename_to_upload_totally} entries imported "
 fi
