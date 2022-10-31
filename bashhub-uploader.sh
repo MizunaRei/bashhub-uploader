@@ -38,8 +38,9 @@ if   [  $line_number_being_uploaded -ge   $line_number_to_start_upload   ]
 	bashhub save  ' $line '  ~/ $$ "${time_now_unix}"  0
 	lines_uploaded_counter=$((lines_uploaded_counter+1))
 	## rewrite last line in terminal 
-	echo -e " \e[1A\e[K  Line $line_number_being_uploaded was uploaded. ${lines_uploaded_counter} of ${lines_to_upload} entries imported "
+	printf  " \e[1A\e[K  Line $line_number_being_uploaded was uploaded. ${lines_uploaded_counter} of ${lines_to_upload} entries imported "
 ## piintf does not work
+## echo -e works
 ## printf " \e[1A \e[K ${n} of ${lines_in_filename_to_upload_totally} entries imported "
 fi
 
